@@ -1,0 +1,121 @@
+Table: t_animal
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ animalId    | INT(10)      | NO   | PRI |         | 神兽id    
+ aniFarmId   | INT(10)      | YES  |     |         | 神兽所属的农场 
+ incomeCount | INT(10)      | YES  |     | 0       | 神兽的总收益  
+ currCount   | INT(10)      | YES  |     |         | 当前收益    
+ isFeed      | INT(10)      | YES  |     | 0       | 是否喂食(0未喂食,1已喂食)
+ feedTime    | DATETIME(19) | YES  |     |         | 喂食时间    
+-------------+--------------+------+-----+---------+---------
+
+Table: t_animal_income
+-------------------+--------------+------+-----+---------+---------
+ Field             | Type         | Null | Key | Default | Remarks 
+-------------------+--------------+------+-----+---------+---------
+ incomeId          | INT(10)      | NO   | PRI |         | 神兽收益表   
+ incomeAnimalId    | INT(10)      | YES  |     |         | 神兽id    
+ animalIncomeNum   | INT(10)      | YES  |     |         | 本次收益份数  
+ animalIncomeCount | INT(10)      | YES  |     |         | 本次收益的积分数
+ animalIncomeTime  | DATETIME(19) | YES  |     |         | 收益时间    
+-------------------+--------------+------+-----+---------+---------
+
+Table: t_ask_cash
+--------------+---------------+------+-----+-------------------+---------
+ Field        | Type          | Null | Key | Default           | Remarks 
+--------------+---------------+------+-----+-------------------+---------
+ askCashId    | INT(10)       | NO   | PRI |                   | 积分提现表   
+ cashUserId   | INT(10)       | YES  |     |                   | 提现用户id  
+ cashIntegral | DOUBLE(11,2)  | YES  |     | 0.00              | 提现积分    
+ cashState    | INT(10)       | YES  |     | 0                 | 提现状态(0未同意,1已同意)
+ cashTime     | TIMESTAMP(19) | YES  |     | CURRENT_TIMESTAMP | 提现时间    
+--------------+---------------+------+-----+-------------------+---------
+
+Table: t_cash_message
+--------------------+--------------+------+-----+---------+---------
+ Field              | Type         | Null | Key | Default | Remarks 
+--------------------+--------------+------+-----+---------+---------
+ cashMessageId      | INT(10)      | NO   | PRI |         | 提现消息表   
+ cashMessageContent | VARCHAR(500) | YES  |     |         | 提现内容    
+ cashMessageState   | INT(10)      | YES  |     | 0       | 该笔提现是否打款
+--------------------+--------------+------+-----+---------+---------
+
+Table: t_land
+----------+---------+------+-----+---------+---------
+ Field    | Type    | Null | Key | Default | Remarks 
+----------+---------+------+-----+---------+---------
+ landId   | INT(10) | NO   | PRI |         | 土地表     
+ isOpen   | INT(10) | YES  |     |         | 是否开耕(0未开耕,1已开耕)
+ farmId   | INT(10) | YES  |     |         | 所属农场    
+ landType | INT(10) | YES  |     |         | 土地类型(0普通土地,1黑土地)
+----------+---------+------+-----+---------+---------
+
+Table: t_land_tree
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ landTreeId   | INT(10)      | NO   | PRI |         | 果树id    
+ landId       | INT(10)      | YES  |     | 0       | 土地id    
+ treeFarmId   | INT(10)      | YES  |     |         | 该课果树的所属农场Id
+ treeType     | INT(10)      | YES  |     | 0       | 果树id    
+ fruitsNum    | INT(10)      | YES  |     | 0       | 总果实产量   
+ currFruitNum | INT(10)      | YES  |     | 0       | 当前果实数   
+ isRich       | INT(10)      | YES  |     | 0       | 是否施肥(0未施肥,1已施肥)
+ getRichTime  | DATETIME(19) | YES  |     |         | 施肥时间    
+--------------+--------------+------+-----+---------+---------
+
+Table: t_open_land
+--------------+---------------+------+-----+-------------------+---------
+ Field        | Type          | Null | Key | Default           | Remarks 
+--------------+---------------+------+-----+-------------------+---------
+ openLandId   | INT(10)       | NO   | PRI |                   | 土地开耕记录  
+ farmId       | INT(10)       | YES  |     |                   | 用户id    
+ landId       | INT(10)       | YES  |     |                   | 所开耕的土地的id
+ openLandTime | TIMESTAMP(19) | YES  |     | CURRENT_TIMESTAMP | 开耕时间    
+--------------+---------------+------+-----+-------------------+---------
+
+Table: t_steal
+---------------+---------------+------+-----+-------------------+---------
+ Field         | Type          | Null | Key | Default           | Remarks 
+---------------+---------------+------+-----+-------------------+---------
+ stealId       | INT(10)       | NO   | PRI |                   | 果实偷取表   
+ farmId        | INT(10)       | YES  |     |                   | 被偷人     
+ strealTreeId  | INT(10)       | YES  |     |                   | 被偷的果树的id
+ stealFruitNum | INT(10)       | YES  |     | 0                 | 被偷果实数量  
+ stealTime     | TIMESTAMP(19) | YES  |     | CURRENT_TIMESTAMP | 被偷时间    
+---------------+---------------+------+-----+-------------------+---------
+
+Table: t_temp_pick
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ tempPickId    | INT(10)      | NO   | PRI |         | 临时摘取果实表 
+ treeId        | INT(10)      | YES  |     |         | 果树id也就是t_land_tree表的主键
+ pickFruitNum  | INT(10)      | YES  |     |         | 摘取果实的数量 
+ pickIntegral  | INT(10)      | YES  |     | 0       | 每次摘取所获得的积分数
+ pickFruitTime | DATETIME(19) | YES  |     |         | 摘取果实的时间 
+---------------+--------------+------+-----+---------+---------
+
+Table: t_user
+---------------+------------------+------+-----+-------------------+---------
+ Field         | Type             | Null | Key | Default           | Remarks 
+---------------+------------------+------+-----+-------------------+---------
+ userId        | INT(10)          | NO   | PRI |                   | 农场表1    
+ realName      | VARCHAR(100)     | YES  |     |                   | 用户名     
+ userPhone     | VARCHAR(50)      | YES  |     |                   | 用户手机号   
+ passWord      | VARCHAR(100)     | YES  |     |                   | 密码      
+ weixinId      | VARCHAR(255)     | YES  |     |                   | 微信号     
+ bankId        | VARCHAR(255)     | YES  |     |                   |         
+ refereeId     | INT(10)          | YES  |     |                   | 推荐人Id   
+ addTime       | TIMESTAMP(19)    | YES  |     | CURRENT_TIMESTAMP | 添加时间    
+ userRole      | INT UNSIGNED(10) | YES  |     | 00000000001       | 用户角色    
+ userMoney     | DOUBLE(11,2)     | YES  |     | 0.00              | 用户余额    
+ farmIntegral  | DOUBLE(11,2)     | YES  |     | 0.00              | 农场收取的积分 
+ fertilizer    | INT UNSIGNED(10) | YES  |     | 00000000000       | 所剩肥料    
+ remainMeat    | INT(10)          | YES  |     | 0                 | 剩余的肉的数量 
+ farmType      | INT(10)          | YES  |     |                   | 农场类型(0普通农场,1高级农场)
+ farmAnimal    | INT(10)          | YES  |     | 0                 | 是否有守护兽(0没有,1有)
+ animalDueTime | BIGINT(19)       | YES  |     |                   | 守护兽到期时间 
+---------------+------------------+------+-----+-------------------+---------
+

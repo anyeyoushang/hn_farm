@@ -1,0 +1,3 @@
+jdbcUrl=jdbc:mysql://localhost/hn_farm
+user=root
+password=root

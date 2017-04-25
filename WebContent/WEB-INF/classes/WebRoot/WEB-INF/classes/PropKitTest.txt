@@ -1,0 +1,3 @@
+name=huige
+age=25
+play=music
